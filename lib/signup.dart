@@ -11,29 +11,59 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   String email, name, password;
+  Widget drawer() {
+    return Drawer();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[Image.asset("assets/logo.png")],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.menu_outlined),
+                    alignment: Alignment.topLeft,
+                    color: Colors.black,
+                    onPressed: () {
+                          drawer();
+                    },
+              ),
+                  Image.asset(
+                      "assets/logo.png",
+                       width: 62,
+                       height: 54,
+                  )],
               ),
             ),
             Column(
               children: <Widget>[
-                Text("Sign-Up"),
+                Text(
+                    "Sign-Up",
+                     style: TextStyle(
+                         fontSize: 30,
+                     ),
+                ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                   child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color.fromRGBO(25, 29, 49, 1)),
+                          color: Color.fromRGBO(25, 29, 49, 1),
+                          gradient:  LinearGradient(
+                          begin: Alignment.centerLeft,
+                          colors: <Color>[
+                            Color(0xffFF7A00),
+                            Color(0xffEB271A),
+                          ],
+                         ),
+                        ),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
                         child: TextField(
@@ -43,7 +73,7 @@ class _SignupState extends State<Signup> {
                             name = value;
                           },
                           decoration: InputDecoration(
-                            hintText: "password",
+                            hintText: "Name",
                           ),
                         ),
                       )),
@@ -53,7 +83,14 @@ class _SignupState extends State<Signup> {
                   child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color.fromRGBO(25, 29, 49, 1)),
+                        gradient:  LinearGradient(
+                          begin: Alignment.centerLeft,
+                          colors: <Color>[
+                            Color(0xffFF7A00),
+                            Color(0xffEB271A),
+                          ],
+                        ),
+                      ),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
                         child: TextField(
@@ -63,7 +100,7 @@ class _SignupState extends State<Signup> {
                             email = value;
                           },
                           decoration: InputDecoration(
-                            hintText: "password",
+                            hintText: "Email",
                           ),
                         ),
                       )),
@@ -73,7 +110,14 @@ class _SignupState extends State<Signup> {
                   child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color.fromRGBO(25, 29, 49, 1)),
+                        gradient:  LinearGradient(
+                          begin: Alignment.centerLeft,
+                          colors: <Color>[
+                            Color(0xffFF7A00),
+                            Color(0xffEB271A),
+                          ],
+                        ),
+                      ),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
                         child: TextField(
@@ -83,12 +127,16 @@ class _SignupState extends State<Signup> {
                             password = value;
                           },
                           decoration: InputDecoration(
-                            hintText: "password",
+                            hintText: "Password",
                           ),
                         ),
                       )),
                 ),
                 MaterialButton(
+                  color: Color(0xffEB271A),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   onPressed: () async {
                     await FirebaseAuth.instance
                         .createUserWithEmailAndPassword(
@@ -138,6 +186,8 @@ class _SignupState extends State<Signup> {
           ],
         ),
       ),
+
+      drawer: new Drawer(),
     );
   }
 }
