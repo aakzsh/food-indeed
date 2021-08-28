@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodindeed/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Signup extends StatefulWidget {
@@ -13,10 +14,14 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[Image.asset("assets/logo.png")],
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[Image.asset("assets/logo.png")],
+              ),
             ),
             Column(
               children: <Widget>[
@@ -82,7 +87,10 @@ class _SignupState extends State<Signup> {
                       )),
                 ),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
+                  },
                   child: Text("SignUp"),
                 )
               ],

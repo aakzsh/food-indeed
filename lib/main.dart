@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodindeed/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'signup.dart';
 
@@ -43,7 +44,7 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 Image.asset(
                   "assets/logo.png",
-                  height: 60,
+                  height: 100,
                 ),
                 Text(
                   "Food Indeed",
@@ -98,21 +99,14 @@ class _LoginState extends State<Login> {
                       )),
                 ),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
+                  },
                   child: Text("LogIn"),
                 ),
                 InkWell(
-                  child: RichText(
-                    text: TextSpan(
-                      style: DefaultTextStyle.of(context).style,
-                      children: const <TextSpan>[
-                        TextSpan(text: 'or signup'),
-                        TextSpan(
-                            text: ' here',
-                            style: TextStyle(color: Colors.deepOrange)),
-                      ],
-                    ),
-                  ),
+                  child: Text("or signup here"),
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Signup()));
