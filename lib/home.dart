@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodindeed/main.dart';
+import 'package:foodindeed/newGroup.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
@@ -186,7 +187,12 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(30)),
                     color: Color(0xFFEB271A),
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewGroup()));
+                      },
                       child: Text(
                         "Click\nHere",
                         style: TextStyle(color: Colors.white),
