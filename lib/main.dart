@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodindeed/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,6 +34,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  FirebaseFirestore auth = FirebaseFirestore.instance;
   String email, password;
   @override
   Widget build(BuildContext context) {
@@ -100,8 +103,33 @@ class _LoginState extends State<Login> {
                 ),
                 MaterialButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Home()));
+                    FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: email, password: password)
+                        .then((result) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                    }).catchError((err) {
+                      print(err.message);
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Error"),
+                              content: Text(err.message),
+                              actions: [
+                                TextButton(
+                                  child: Text("Ok"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    });
                   },
                   child: Text("LogIn"),
                 ),

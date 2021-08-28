@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodindeed/home.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -87,9 +89,44 @@ class _SignupState extends State<Signup> {
                       )),
                 ),
                 MaterialButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Home()));
+                  onPressed: () async {
+                    await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: email, password: password)
+                        .then((value) {
+                      if (value.user != null) {
+                        FirebaseFirestore.instance
+                            .collection("students")
+                            .doc(value.user?.uid)
+                            .set({
+                          "name": name,
+                          "email": email,
+                          "tickets": [],
+                        });
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Home(),
+                            ));
+                      }
+                    }).catchError((err) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Error"),
+                              content: Text(err.message),
+                              actions: [
+                                TextButton(
+                                  child: Text("Ok"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    });
                   },
                   child: Text("SignUp"),
                 )
