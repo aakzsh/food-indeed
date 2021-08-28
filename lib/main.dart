@@ -201,7 +201,7 @@ class _LoginState extends State<Login> {
               ),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
+                    context, MaterialPageRoute(builder: (context) => Signup()));
               },
             )
           ],
