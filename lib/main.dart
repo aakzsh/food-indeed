@@ -131,7 +131,7 @@ class _LoginState extends State<Login> {
                           style: GoogleFonts.poppins(
                               color: Colors.white, fontSize: 16),
                           onChanged: (value) {
-                            email = value;
+                            password = value;
                           },
                           decoration: InputDecoration(
                             hintText: "password",

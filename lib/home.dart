@@ -169,6 +169,18 @@ class _HomeState extends State<Home> {
                     height: 7,
                     width: MediaQuery.of(context).size.width - 50,
                     color: Color(0xFFEB271A),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: InkWell(
+                        child: Text(
+                          'see all',
+                          style: TextStyle(color: Color(0xFFEB271A)),
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),
