@@ -3,6 +3,8 @@ import 'package:foodindeed/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 
 class NewGroup extends StatefulWidget {
   @override
@@ -11,11 +13,61 @@ class NewGroup extends StatefulWidget {
 
 class _NewGroupState extends State<NewGroup> {
   String place, date, time, total_slots;
+  XFile _image;
+  final ImagePicker _picker = ImagePicker();
   Widget drawer() {
     return Drawer();
   }
 
   @override
+  _imgFromCamera() async {
+    XFile image =
+        await _picker.pickImage(source: ImageSource.camera, imageQuality: 50);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  _imgFromGallery() async {
+    XFile image =
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -202,7 +254,9 @@ class _NewGroupState extends State<NewGroup> {
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                _showPicker(context);
+                              },
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10),
