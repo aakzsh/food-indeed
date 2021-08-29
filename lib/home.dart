@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodindeed/allGroups.dart';
 import 'package:foodindeed/main.dart';
 import 'package:foodindeed/newGroup.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -175,6 +176,12 @@ class _HomeState extends State<Home> {
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AllGroups()));
+                        },
                         child: Text(
                           'see all',
                           style: TextStyle(color: Color(0xFFEB271A)),
